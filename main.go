@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"fmt"
+	"math"
 )
 
 type linkedList struct {
@@ -39,4 +41,62 @@ func LongestSubstringWithoutRepeatingCharacters(s string) int {
 	}
 
 	return maxLength
+}
+
+func AddTwoNumbersAsLinkedLists(l1, l2 *linkedList) int {
+	var number1, number2, sum, digit int
+	var iterator *linkedList
+	var next bool
+
+	iterator = l1
+	for {
+		if next {
+			number2 += iterator.value * int(math.Pow10(digit))
+		} else {
+			number1 += iterator.value * int(math.Pow10(digit))
+		}
+
+		if iterator.next != nil {
+			iterator = iterator.next
+			digit++
+		} else if !next {
+			iterator = l2
+			next = true
+			digit = 0
+		} else {
+			digit = 0
+			break
+		}
+	}
+
+	sum = number1 + number2
+
+	// Осталось перевернуть сумму и вывести ее как связанный список
+	// + написать тесты
+
+	return sum
+}
+
+func main() {
+	l1 := &linkedList{
+		value: 2,
+		next: &linkedList{
+			value: 4,
+			next: &linkedList{
+				value: 3,
+				next:  nil,
+			},
+		},
+	}
+	l2 := &linkedList{
+		value: 5,
+		next: &linkedList{
+			value: 6,
+			next: &linkedList{
+				value: 4,
+				next:  nil,
+			},
+		},
+	}
+	fmt.Println(AddTwoNumbersAsLinkedLists(l1, l2))
 }

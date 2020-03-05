@@ -6,9 +6,9 @@ import (
 	"math"
 )
 
-type linkedList struct {
-	value int
-	next  *linkedList
+type LinkedList struct {
+	Value int
+	Next  *LinkedList
 }
 
 func max(x, y int) int {
@@ -43,33 +43,23 @@ func LongestSubstringWithoutRepeatingCharacters(s string) int {
 	return maxLength
 }
 
-func AddTwoNumbersAsLinkedLists(l1, l2 *linkedList) int {
-	var number1, number2, sum, digit int
-	var iterator *linkedList
-	var next bool
-
-	iterator = l1
-	for {
-		if next {
-			number2 += iterator.value * int(math.Pow10(digit))
-		} else {
-			number1 += iterator.value * int(math.Pow10(digit))
-		}
-
-		if iterator.next != nil {
-			iterator = iterator.next
-			digit++
-		} else if !next {
-			iterator = l2
-			next = true
-			digit = 0
-		} else {
-			digit = 0
-			break
+// SumNumbersAsLinkedLists считает сумму всех введенных чисел в виде связанных
+// списков из цифр в обратном порядке, выводит ее в виде такого же связанного
+// списка с цифрами в обратном порядке.
+func SumNumbersAsLinkedLists(list ...*LinkedList) int {
+	var sum, digit int
+	for _, iterator := range list {
+		for {
+			sum += iterator.Value * int(math.Pow10(digit))
+			if iterator.Next != nil {
+				iterator = iterator.Next
+				digit++
+			} else {
+				digit = 0
+				break
+			}
 		}
 	}
-
-	sum = number1 + number2
 
 	// Осталось перевернуть сумму и вывести ее как связанный список
 	// + написать тесты
@@ -78,25 +68,25 @@ func AddTwoNumbersAsLinkedLists(l1, l2 *linkedList) int {
 }
 
 func main() {
-	l1 := &linkedList{
-		value: 2,
-		next: &linkedList{
-			value: 4,
-			next: &linkedList{
-				value: 3,
-				next:  nil,
+	l1 := &LinkedList{
+		Value: 2,
+		Next: &LinkedList{
+			Value: 4,
+			Next: &LinkedList{
+				Value: 3,
+				Next:  nil,
 			},
 		},
 	}
-	l2 := &linkedList{
-		value: 5,
-		next: &linkedList{
-			value: 6,
-			next: &linkedList{
-				value: 4,
-				next:  nil,
+	l2 := &LinkedList{
+		Value: 5,
+		Next: &LinkedList{
+			Value: 6,
+			Next: &LinkedList{
+				Value: 4,
+				Next:  nil,
 			},
 		},
 	}
-	fmt.Println(AddTwoNumbersAsLinkedLists(l1, l2))
+	fmt.Println(SumNumbersAsLinkedLists(l1, l2))
 }

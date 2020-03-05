@@ -2,9 +2,9 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 )
 
+// max returns maximum of two given ints.
 func max(x, y int) int {
 	if x > y {
 		return x
@@ -12,8 +12,8 @@ func max(x, y int) int {
 	return y
 }
 
-// LongestSubstringWithoutRepeatingCharacters находит в заданной строке
-// длину максимальной подстроки, у которой нет повторящихся символов.
+// LongestSubstringWithoutRepeatingCharacters returns length of the longest
+// substring of a given string, that has no duplicate characters.
 func LongestSubstringWithoutRepeatingCharacters(s string) int {
 	var stopIndex, maxLength, bufferIndex int
 	var buffer []byte
@@ -35,8 +35,4 @@ func LongestSubstringWithoutRepeatingCharacters(s string) int {
 	}
 
 	return maxLength
-}
-
-func main() {
-	fmt.Println("hello")
 }

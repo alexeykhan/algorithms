@@ -1,18 +1,18 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"math"
 )
 
+// LinkedList позволяет представлять данные в виде связанных списков.
 type LinkedList struct {
 	Value int
 	Next  *LinkedList
 }
 
-// Flatten выводит строку с последовательностью значений элементов списка,
-// разделенных символом стрелки, например: (7 -> 0 -> 8)
+// Flatten выводит строку с последовательностью значений элементов связанного
+// списка, разделенных символом стрелки, например: (7 -> 0 -> 8)
 func (l *LinkedList) Flatten() string {
 	var answer string
 	var next bool
@@ -35,41 +35,11 @@ func (l *LinkedList) Flatten() string {
 	return fmt.Sprintf("(%s)", answer)
 }
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-// LongestSubstringWithoutRepeatingCharacters находит в заданной строке
-// длину максимальной подстроки, у которой нет повторящихся символов.
-func LongestSubstringWithoutRepeatingCharacters(s string) int {
-	var stopIndex, maxLength, bufferIndex int
-	var buffer []byte
-	input := []byte(s)
-
-	for i, char := range input {
-		bufferIndex = bytes.IndexByte(buffer, char)
-		if bufferIndex > -1 {
-			maxLength = max(maxLength, i-stopIndex)
-			stopIndex += bufferIndex + 1
-		}
-		buffer = input[stopIndex : i+1]
-	}
-
-	if stopIndex == 0 {
-		maxLength = len(input)
-	} else {
-		maxLength = max(maxLength, len(buffer))
-	}
-
-	return maxLength
-}
-
 // SumNumbersAsLinkedLists считает сумму всех введенных чисел в виде связанных
 // списков из цифр в обратном порядке, выводит ее в виде такого же связанного
 // списка с цифрами в обратном порядке.
+// Пример: (2 -> 4 -> 3) + (5 -> 6 -> 4) = 7 -> 0 -> 8
+// Пояснение: 342 + 465 = 807.
 func SumNumbersAsLinkedLists(list ...*LinkedList) *LinkedList {
 	var digit int
 	var total float64
@@ -99,7 +69,6 @@ func SumNumbersAsLinkedLists(list ...*LinkedList) *LinkedList {
 				Next:  &LinkedList{},
 			}
 			current = answer.Next
-			fmt.Println(total, value, answer)
 			continue
 		}
 
@@ -113,30 +82,4 @@ func SumNumbersAsLinkedLists(list ...*LinkedList) *LinkedList {
 	}
 
 	return answer
-}
-
-func main() {
-	l1 := &LinkedList{
-		Value: 2,
-		Next: &LinkedList{
-			Value: 4,
-			Next: &LinkedList{
-				Value: 3,
-				Next:  nil,
-			},
-		},
-	}
-	l2 := &LinkedList{
-		Value: 5,
-		Next: &LinkedList{
-			Value: 6,
-			Next: &LinkedList{
-				Value: 4,
-				Next:  nil,
-			},
-		},
-	}
-
-	sum := SumNumbersAsLinkedLists(l1, l2)
-	fmt.Println(sum.Flatten())
 }

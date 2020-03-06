@@ -4,14 +4,6 @@ import (
 	"bytes"
 )
 
-// max returns maximum of two given ints.
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}
-
 // LongestSubstringWithoutRepeatingCharacters находит в заданной строке
 // длину максимальной подстроки, у которой нет повторящихся символов.
 func LongestSubstringWithoutRepeatingCharacters(s string) int {

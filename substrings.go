@@ -12,8 +12,8 @@ func max(x, y int) int {
 	return y
 }
 
-// LongestSubstringWithoutRepeatingCharacters returns length of the longest
-// substring of a given string, that has no duplicate characters.
+// LongestSubstringWithoutRepeatingCharacters находит в заданной строке
+// длину максимальной подстроки, у которой нет повторящихся символов.
 func LongestSubstringWithoutRepeatingCharacters(s string) int {
 	var stopIndex, maxLength, bufferIndex int
 	var buffer []byte

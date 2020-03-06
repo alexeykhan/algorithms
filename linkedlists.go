@@ -5,14 +5,14 @@ import (
 	"math"
 )
 
-// LinkedList allows to store connected data as a linked list.
+// LinkedList позволяет хранить данные в формате связанного списка.
 type LinkedList struct {
 	Value int
 	Next  *LinkedList
 }
 
-// Flatten returns a string with a sequence of linked list elements values
-// separated by arrow, for example: (7 -> 0 -> 8)
+// Flatten выводит строку с последовательностью значений элементов связанного
+// списка, разделенных символом стрелки, например: (7 -> 0 -> 8)
 func (l *LinkedList) Flatten() string {
 	var answer string
 	var next bool
@@ -35,11 +35,38 @@ func (l *LinkedList) Flatten() string {
 	return fmt.Sprintf("(%s)", answer)
 }
 
-// SumNumbersAsLinkedLists calculates the sum of entered numbers (represented by
-// linked lists with digits in reverse order) and returns it as a linked list
-// with digits in reverse order.
-// Example: (2 -> 4 -> 3) + (5 -> 6 -> 4) = 7 -> 0 -> 8
-// Explanation: 342 + 465 = 807.
+// ReverseLinkedListIteratively переворачивает связанный список сверху вниз с
+// помощью последовательных операций.
+func ReverseLinkedListIteratively(l *LinkedList) *LinkedList {
+	var next bool
+	var reversed *LinkedList
+	for {
+		if next {
+			reversed = &LinkedList{
+				Value: l.Value,
+				Next:  reversed,
+			}
+		} else {
+			reversed = &LinkedList{
+				Value: l.Value,
+				Next:  nil,
+			}
+			next = true
+		}
+		if l.Next != nil {
+			l = l.Next
+		} else {
+			break
+		}
+	}
+	return reversed
+}
+
+// SumNumbersAsLinkedLists считает сумму всех введенных чисел в виде связанных
+// списков из цифр в обратном порядке, выводит ее в виде такого же связанного
+// списка с цифрами в обратном порядке.
+// Пример: (2 -> 4 -> 3) + (5 -> 6 -> 4) = 7 -> 0 -> 8
+// Пояснение: 342 + 465 = 807.
 func SumNumbersAsLinkedLists(list ...*LinkedList) *LinkedList {
 	var digit int
 	var total float64
